@@ -3,52 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кибербезопасность · 7 класс · Мега-глассморфизм</title>
+    <title>Кибербезопасность · 7 класс</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="presentation-container">
-        <!-- Главный слайд-контейнер -->
-        <div class="glass-panel main-panel">
-            <!-- Хедер с навигацией -->
-            <div class="glass-header">
-                <div class="logo-area">
-                    <span class="logo-icon">🛡️</span>
-                    <span class="logo-text">КИБЕРБЕЗОПАСНОСТЬ</span>
-                    <span class="logo-grade">7 КЛАСС</span>
-                </div>
-                <div class="slide-indicator">
-                    <span class="slide-current" id="currentSlide">1</span>
-                    <span class="slide-separator">/</span>
-                    <span class="slide-total" id="totalSlides">24</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 4.16%;"></div>
-                </div>
+    <div class="presentation">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">КИБЕРБЕЗОПАСНОСТЬ 7</span>
             </div>
+            <div class="counter" id="slideCounter">1/24</div>
+            <div class="progress">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
 
-            <!-- Основной контент слайда -->
-            <div class="slide-content" id="slideContent">
-                <!-- Динамически загружается через JS -->
-            </div>
+        <div class="content" id="content"></div>
 
-            <!-- Нижняя навигация -->
-            <div class="glass-footer">
-                <button class="nav-button" id="prevBtn">
-                    <span class="nav-icon">◀</span>
-                    <span class="nav-text">НАЗАД</span>
-                </button>
-                <div class="slide-info">
-                    <span class="slide-title" id="slideTitle">Введение в кибербезопасность</span>
-                </div>
-                <button class="nav-button" id="nextBtn">
-                    <span class="nav-text">ВПЕРЁД</span>
-                    <span class="nav-icon">▶</span>
-                </button>
-            </div>
+        <div class="footer">
+            <button class="nav-btn" id="prevBtn">◀ НАЗАД</button>
+            <span class="slide-title" id="slideTitle">Введение</span>
+            <button class="nav-btn" id="nextBtn">ВПЕРЁД ▶</button>
         </div>
     </div>
     <script src="script.js"></script>
