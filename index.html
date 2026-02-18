@@ -3,115 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кибербезопасность · 7 класс</title>
+    <title>Кибербезопасность · 7 класс · Мега-глассморфизм</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="dashboard">
-        <!-- Ключевая информация -->
-        <div class="key-info">
-            <span>🔐 КИБЕРБЕЗОПАСНОСТЬ — ЦИФРОВОЙ ИММУНИТЕТ</span>
-            <p>80% взломов — из-за простых ошибок. Смотри и запоминай!</p>
-        </div>
-
-        <!-- 6 симуляций -->
-        <div class="simulations-grid">
-            <!-- 1. Брутфорс -->
-            <div class="card">
-                <h3>👨‍💻 Брутфорс (подбор пароля)</h3>
-                <div class="simulator">
-                    <div class="password-display">Пароль: <span id="passwordDisplay">qwerty123</span></div>
-                    <div class="indicators">
-                        <span id="passStrength">🟢 Слабый</span>
-                        <span id="timeToCrack">⏱️ 0.2 сек</span>
-                    </div>
-                    <div class="buttons">
-                        <button class="btn" id="weakPassBtn">Слабый пароль</button>
-                        <button class="btn green" id="strongPassBtn">Сильный пароль</button>
-                    </div>
+    <div class="presentation-container">
+        <!-- Главный слайд-контейнер -->
+        <div class="glass-panel main-panel">
+            <!-- Хедер с навигацией -->
+            <div class="glass-header">
+                <div class="logo-area">
+                    <span class="logo-icon">🛡️</span>
+                    <span class="logo-text">КИБЕРБЕЗОПАСНОСТЬ</span>
+                    <span class="logo-grade">7 КЛАСС</span>
+                </div>
+                <div class="slide-indicator">
+                    <span class="slide-current" id="currentSlide">1</span>
+                    <span class="slide-separator">/</span>
+                    <span class="slide-total" id="totalSlides">24</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 4.16%;"></div>
                 </div>
             </div>
 
-            <!-- 2. Фишинг -->
-            <div class="card">
-                <h3>🎣 Фишинг (поддельные сайты)</h3>
-                <div class="simulator">
-                    <div id="phishingUrl" class="url-display">https://vk.com</div>
-                    <button class="btn red" id="phishingDemoBtn">Показать обман</button>
-                </div>
+            <!-- Основной контент слайда -->
+            <div class="slide-content" id="slideContent">
+                <!-- Динамически загружается через JS -->
             </div>
 
-            <!-- 3. 2FA -->
-            <div class="card">
-                <h3>🔐 Двухфакторка (2FA)</h3>
-                <div class="simulator">
-                    <div class="2fa-status" id="hack2faMessage">❌ 2FA выключена</div>
-                    <div class="buttons">
-                        <button class="btn" id="sim2faOn">Включить 2FA</button>
-                        <button class="btn red" id="sim2faOff">Выключить 2FA</button>
-                    </div>
-                    <div class="buttons">
-                        <button class="btn red" id="tryHackWith2fa">Взлом без 2FA</button>
-                        <button class="btn green" id="tryHackWith2faProtected">Взлом с 2FA</button>
-                    </div>
+            <!-- Нижняя навигация -->
+            <div class="glass-footer">
+                <button class="nav-button" id="prevBtn">
+                    <span class="nav-icon">◀</span>
+                    <span class="nav-text">НАЗАД</span>
+                </button>
+                <div class="slide-info">
+                    <span class="slide-title" id="slideTitle">Введение в кибербезопасность</span>
                 </div>
+                <button class="nav-button" id="nextBtn">
+                    <span class="nav-text">ВПЕРЁД</span>
+                    <span class="nav-icon">▶</span>
+                </button>
             </div>
-
-            <!-- 4. Wi-Fi/VPN -->
-            <div class="card">
-                <h3>📡 Wi-Fi / VPN</h3>
-                <div class="simulator">
-                    <div id="wifiStatus" class="wifi-status">🟡 Трафик открыт</div>
-                    <div id="sniffedData">Перехвачено: "login: student7, pass: 12345"</div>
-                    <div class="buttons">
-                        <button class="btn red" id="noVpnBtn">Без VPN</button>
-                        <button class="btn green" id="vpnBtn">С VPN</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. Социальная инженерия -->
-            <div class="card">
-                <h3>🎭 Социальная инженерия</h3>
-                <div class="simulator">
-                    <p>«Звонок из банка» — просят код</p>
-                    <div class="buttons">
-                        <button class="btn red" id="socialHack">Ответить "да"</button>
-                        <button class="btn green" id="socialSafe">Положить трубку</button>
-                    </div>
-                    <div id="socialResult" class="social-result">⚠️ Никому не называй код!</div>
-                </div>
-            </div>
-
-            <!-- 6. Обновления -->
-            <div class="card">
-                <h3>🔄 Обновления</h3>
-                <div class="simulator">
-                    <p>Старая программа = дыра в безопасности</p>
-                    <div class="buttons">
-                        <button class="btn red" id="noUpdateBtn">Не обновлять</button>
-                        <button class="btn green" id="updateBtn">Обновить</button>
-                    </div>
-                    <div id="updateStatus" class="update-status">🟢 Есть уязвимости</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ОПРОС -->
-        <h2>🔐 КИБЕР-ОПРОС · 10 ВОПРОСОВ</h2>
-        <div class="counter" id="questionCounter">Вопрос 1 из 10</div>
-        
-        <div id="pollContainer"></div>
-
-        <div class="btn-group">
-            <button class="btn" id="nextBtn" style="display: none;">▶ Следующий вопрос</button>
-        </div>
-
-        <div class="footer">
-            ⚡ Урок кибербезопасности · 7 класс · 2026
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
