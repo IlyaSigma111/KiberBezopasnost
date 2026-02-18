@@ -3,147 +3,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кибербезопасность · Презентация</title>
+    <title>Кибербезопасность | Полный курс в презентации</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-
+    <div class="cursor-glow"></div>
+    
     <div class="app">
-        <!-- Основной контейнер с эффектом стекла -->
-        <div class="glass-container">
-            
-            <!-- Заголовок (виден всегда) -->
+        <div class="glass-orbe"></div>
+        <div class="glass-orbe orbe-2"></div>
+        
+        <div class="main-container">
+            <!-- Хедер с прогрессом -->
             <header class="header">
-                <h1>🛡️ Кибербезопасность</h1>
-                <div class="slide-counter">
-                    <span id="current-slide">1</span>/<span id="total-slides">7</span>
+                <div class="logo">
+                    <span class="logo-icon">🛡️</span>
+                    <span class="logo-text">Securi<span class="gradient-text">Pulse</span></span>
                 </div>
+                
+                <div class="progress-indicator">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 14%"></div>
+                    </div>
+                    <div class="slide-info">
+                        <span id="currentSlide">1</span>/<span id="totalSlides">14</span>
+                    </div>
+                </div>
+                
+                <button class="presentation-btn" id="presentationBtn">
+                    <span>🎬</span>
+                    <span class="btn-text">Презентация</span>
+                </button>
             </header>
 
-            <!-- Слайды (контент) -->
-            <div class="slides-wrapper" id="slidesWrapper">
-                <!-- Слайд 1: Вступление + Фишинг -->
-                <section class="slide active">
-                    <h2>🔑 Фишинг — главная угроза</h2>
-                    <p class="slide-description">Злоумышленники маскируются под надежные источники, чтобы выкрасть ваши данные.</p>
-                    
-                    <div class="interactive-area">
-                        <div class="phishing-demo">
-                            <p class="demo-label">Нажми на ссылку (осторожно!):</p>
-                            <div class="link-card">
-                                <a href="#" id="phishLink" class="phish-link">🔗 Перейти на сайт безопасности</a>
-                                <div class="real-url" id="realUrl">Настоящий URL: <span class="url-text">http://secure.com.fake-site.ru</span></div>
+            <!-- Основной слайдер -->
+            <div class="slides-container" id="slidesContainer">
+                <!-- СЛАЙД 1: Вступление (1 мин) -->
+                <div class="slide active">
+                    <div class="slide-content">
+                        <div class="slide-badge">Вступление · 1 мин</div>
+                        <h1 class="slide-title">Кибербезопасность <span class="gradient-text">2026</span></h1>
+                        <p class="slide-subtitle">Что нужно знать каждому, чтобы не стать жертвой хакеров</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">4.5M</div>
+                                <div class="stat-label">кибератак в день</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">$10.5T</div>
+                                <div class="stat-label">ущерб в 2025</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">95%</div>
+                                <div class="stat-label">из-за ошибок людей</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <p>📌 За следующие 15 минут ты узнаешь основные угрозы, научишься их распознавать и защищаться. Каждый слайд — интерактивный пример.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 2: Фишинг (2 мин) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Фишинг · 2 мин</div>
+                        <h2 class="slide-title">🎣 Фишинг — главная угроза</h2>
+                        
+                        <div class="two-column">
+                            <div class="column">
+                                <p>Фишинг — это когда мошенники маскируются под надежные источники (банки, соцсети, коллег), чтобы выкрасть пароли и данные.</p>
+                                <ul class="feature-list">
+                                    <li>🔹 <strong>Email-фишинг</strong> — письма от "банков"</li>
+                                    <li>🔹 <strong>Смишинг</strong> — SMS-мошенничество</li>
+                                    <li>🔹 <strong>Вишинг</strong> — звонки от "службы безопасности"</li>
+                                    <li>🔹 <strong>Фарминг</strong> — поддельные сайты</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="column">
+                                <div class="phishing-demo" id="phishingDemo">
+                                    <p class="demo-label">Нажми на ссылку (тест-драйв):</p>
+                                    <div class="link-preview">
+                                        <a href="#" class="phish-link" id="phishLink">🔗 Перейти в Сбербанк-Онлайн</a>
+                                        <div class="url-popup" id="urlPopup">
+                                            Настоящий URL: <span class="url-highlight">http://sberbank.ru.fake-id432.ru</span>
+                                        </div>
+                                    </div>
+                                    <div class="phish-stats" id="phishStats">
+                                        <p>⏱️ 60% людей переходят по таким ссылкам</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
-
-                <!-- Слайд 2: Двухфакторная аутентификация -->
-                <section class="slide">
-                    <h2>🔐 Двухфакторная аутентификация</h2>
-                    <p class="slide-description">Даже если пароль украли, второй фактор остановит взлом.</p>
-                    
-                    <div class="interactive-area">
+                </div>
+                
+                <!-- СЛАЙД 3: Социальная инженерия (1.5 мин) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Социальная инженерия · 1.5 мин</div>
+                        <h2 class="slide-title">🧠 Социальная инженерия</h2>
+                        
+                        <div class="social-engineering">
+                            <p>Хакеры взламывают не компьютеры, а людей. Самый слабый элемент защиты — человек.</p>
+                            
+                            <div class="example-cards">
+                                <div class="example-card" id="socialExample1">
+                                    <h4>📞 "Звонок из банка"</h4>
+                                    <p class="example-hidden" id="exampleHidden1">"Ваша карта заблокирована, назовите код из SMS" — это мошенники.</p>
+                                    <button class="glass-btn small" id="showExample1">Показать пример</button>
+                                </div>
+                                <div class="example-card" id="socialExample2">
+                                    <h4>💼 "Помощь коллеге"</h4>
+                                    <p class="example-hidden" id="exampleHidden2">"Привет, это Иван из бухгалтерии, срочно переведи деньги..."</p>
+                                    <button class="glass-btn small" id="showExample2">Показать пример</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 4: Пароли (2 мин) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Пароли · 2 мин</div>
+                        <h2 class="slide-title">🔑 Как создавать надежные пароли</h2>
+                        
+                        <div class="password-matrix">
+                            <div class="matrix-item weak">
+                                <span class="password">qwerty123</span>
+                                <span class="time">⚡ 0.2 сек</span>
+                            </div>
+                            <div class="matrix-item weak">
+                                <span class="password">password2024</span>
+                                <span class="time">⚡ 2 сек</span>
+                            </div>
+                            <div class="matrix-item medium">
+                                <span class="password">P@ssw0rd</span>
+                                <span class="time">⏱️ 3 часа</span>
+                            </div>
+                            <div class="matrix-item strong">
+                                <span class="password">G7$k2!mN9</span>
+                                <span class="time">🔒 200 лет</span>
+                            </div>
+                            <div class="matrix-item strong">
+                                <span class="password">Tr0ub4dor&3</span>
+                                <span class="time">🔒 500 лет</span>
+                            </div>
+                        </div>
+                        
+                        <div class="password-tip">
+                            💡 Лучший пароль — 4 случайных слова (correct horse battery staple)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 5: Двухфакторка (1.5 мин) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">2FA · 1.5 мин</div>
+                        <h2 class="slide-title">🔐 Двухфакторная аутентификация</h2>
+                        
                         <div class="twofa-demo">
                             <div class="login-sim">
-                                <input type="text" value="user@mail.com" disabled>
-                                <input type="password" value="12345" disabled>
-                                <button class="glass-btn" id="simulateLoginBtn">Войти</button>
+                                <input type="text" placeholder="Логин" value="user@mail.com" disabled>
+                                <input type="password" placeholder="Пароль" value="12345" disabled>
+                                <button class="glass-btn" id="simulateLogin2FA">Войти</button>
                             </div>
                             
                             <div class="twofa-panel" id="twofaPanel">
-                                <p>📱 Код из приложения:</p>
-                                <div class="code-input">
-                                    <input type="text" id="twofaCode" placeholder="6 цифр" maxlength="6">
-                                    <button class="glass-btn" id="verifyTwofaBtn">Подтвердить</button>
+                                <p>📱 Введи код из приложения (подсказка: 123456):</p>
+                                <div class="code-input-group">
+                                    <input type="text" id="twofaCode" maxlength="6" placeholder="6 цифр">
+                                    <button class="glass-btn" id="verify2FA">Подтвердить</button>
                                 </div>
                                 <p class="twofa-message" id="twofaMessage"></p>
                             </div>
+                            
+                            <div class="info-text">Даже если пароль украли, второй фактор остановит взлом.</div>
                         </div>
                     </div>
-                </section>
-
-                <!-- Слайд 3: Шифрование -->
-                <section class="slide">
-                    <h2>🔒 Шифрование данных</h2>
-                    <p class="slide-description">Данные превращаются в "кашу", которую нельзя прочитать без ключа.</p>
-                    
-                    <div class="interactive-area">
+                </div>
+                
+                <!-- СЛАЙД 6: Шифрование (1.5 мин) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Шифрование · 1.5 мин</div>
+                        <h2 class="slide-title">🔒 Как работает шифрование</h2>
+                        
                         <div class="encryption-demo">
-                            <div class="message-box">
-                                <span class="original-text" id="originalText">Привет, мир!</span>
-                                <button class="glass-btn" id="encryptBtn">🔐 Зашифровать</button>
+                            <div class="message-original">
+                                <span>Исходное сообщение:</span>
+                                <strong id="originalMessage">Привет, мир!</strong>
                             </div>
-                            <div class="result-box" id="encryptedResult">
-                                <span class="placeholder">Нажми кнопку</span>
+                            
+                            <button class="glass-btn" id="encryptMessageBtn">🔐 Зашифровать</button>
+                            
+                            <div class="message-encrypted" id="encryptedMessage">
+                                <span>Зашифрованное:</span>
+                                <code>****************</code>
                             </div>
+                            
+                            <p class="small-note">* Шифрование превращает данные в нечитаемый вид. Без ключа расшифровать невозможно.</p>
                         </div>
                     </div>
-                </section>
-
-                <!-- Слайд 4: Публичный Wi-Fi -->
-                <section class="slide">
-                    <h2>📡 Опасность публичного Wi-Fi</h2>
-                    <p class="slide-description">Хакер может перехватывать трафик в общественных сетях.</p>
-                    
-                    <div class="interactive-area">
+                </div>
+                
+                <!-- СЛАЙД 7: Публичный Wi-Fi (1.5 мин) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Wi-Fi безопасность · 1.5 мин</div>
+                        <h2 class="slide-title">📡 Опасность публичного Wi-Fi</h2>
+                        
                         <div class="wifi-demo">
+                            <p>В открытых сетях хакер может перехватывать твой трафик (Man-in-the-Middle).</p>
+                            
                             <input type="range" id="hackerSlider" min="0" max="100" value="0" class="wifi-slider">
                             
                             <div class="hacker-window">
-                                <div class="hacker-data visible" id="dataLight">
-                                    👤: Привет, как дела?
-                                </div>
-                                <div class="hacker-data" id="dataMedium">
-                                    🔴: Логин: user, пароль: 123
-                                </div>
-                                <div class="hacker-data" id="dataFull">
-                                    💀: Номер карты, CVV, адрес...
-                                </div>
+                                <div class="hacker-data" id="wifiDataLight">👤: Привет, как дела? (видно всем)</div>
+                                <div class="hacker-data" id="wifiDataMedium">🔴: Логин: user, пароль: 123</div>
+                                <div class="hacker-data" id="wifiDataFull">💀: Номер карты: 4111-****-****-1234, CVV</div>
+                            </div>
+                            
+                            <p class="slider-value">Уровень перехвата: <span id="sliderValue">0%</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 8: Вирусное ПО (1.5 мин) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Вредоносное ПО · 1.5 мин</div>
+                        <h2 class="slide-title">🦠 Типы вирусов</h2>
+                        
+                        <div class="malware-grid">
+                            <div class="malware-card">
+                                <h4>🔸 Трояны</h4>
+                                <p>Маскируются под полезные программы</p>
+                            </div>
+                            <div class="malware-card">
+                                <h4>🔸 Шифровальщики</h4>
+                                <p>Блокируют файлы и требуют выкуп</p>
+                            </div>
+                            <div class="malware-card">
+                                <h4>🔸 Шпионское ПО</h4>
+                                <p>Следит за действиями</p>
+                            </div>
+                            <div class="malware-card">
+                                <h4>🔸 Майнеры</h4>
+                                <p>Используют твой компьютер для майнинга</p>
                             </div>
                         </div>
                     </div>
-                </section>
-
-                <!-- Слайд 5: Викторина (Карточка 1-3) -->
-                <section class="slide">
-                    <h2>🤔 Какой пароль надежнее? (Часть 1)</h2>
-                    <p class="slide-description">Нажми на карточку, чтобы узнать ответ</p>
-                    
-                    <div class="quiz-grid" id="quizPart1"></div>
-                </section>
-
-                <!-- Слайд 6: Викторина (Карточка 4-7) -->
-                <section class="slide">
-                    <h2>🤔 Какой пароль надежнее? (Часть 2)</h2>
-                    <p class="slide-description">Продолжаем угадывать</p>
-                    
-                    <div class="quiz-grid" id="quizPart2"></div>
-                </section>
-
-                <!-- Слайд 7: Викторина (Карточка 8-10) + Итог -->
-                <section class="slide">
-                    <h2>🤔 Какой пароль надежнее? (Часть 3)</h2>
-                    <p class="slide-description">Финальные вопросы</p>
-                    
-                    <div class="quiz-grid" id="quizPart3"></div>
-                    <div class="quiz-message" id="quizMessage"></div>
-                </section>
+                </div>
+                
+                <!-- СЛАЙД 9: Вопросы про пароли (часть 1) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Викторина · 3 мин</div>
+                        <h2 class="slide-title">🤔 Какой пароль надежнее? #1</h2>
+                        
+                        <div class="quiz-grid" id="quiz1"></div>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 10: Вопросы про пароли (часть 2) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Викторина · 3 мин</div>
+                        <h2 class="slide-title">🤔 Какой пароль надежнее? #2</h2>
+                        
+                        <div class="quiz-grid" id="quiz2"></div>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 11: Вопросы про пароли (часть 3) -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Викторина · 3 мин</div>
+                        <h2 class="slide-title">🤔 Какой пароль надежнее? #3</h2>
+                        
+                        <div class="quiz-grid" id="quiz3"></div>
+                        <div class="quiz-message" id="quizMessage"></div>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 12: Безопасность в соцсетях -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Соцсети · 1 мин</div>
+                        <h2 class="slide-title">📱 Безопасность в соцсетях</h2>
+                        
+                        <ul class="security-tips">
+                            <li>✅ Не ставь геолокацию в реальном времени</li>
+                            <li>✅ Не публикуй фото документов и билетов</li>
+                            <li>✅ Отключи автоматическое определение друзей</li>
+                            <li>✅ Проверяй настройки приватности раз в месяц</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 13: Что делать если взломали -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Экстренные меры · 1 мин</div>
+                        <h2 class="slide-title">🚨 Что делать при взломе</h2>
+                        
+                        <ol class="action-list">
+                            <li>1️⃣ Смени пароли (с другого устройства)</li>
+                            <li>2️⃣ Проверь сеансы и заверши все</li>
+                            <li>3️⃣ Включи 2FA везде</li>
+                            <li>4️⃣ Проверь почту на haveibeenpwned</li>
+                            <li>5️⃣ Сообщи в поддержку сервиса</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 14: Итоги и чеклист -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <div class="slide-badge">Итоги · 1 мин</div>
+                        <h2 class="slide-title">✅ Чеклист безопасности</h2>
+                        
+                        <div class="checklist">
+                            <label class="checklist-item">
+                                <input type="checkbox"> Менеджер паролей (Bitwarden/1Password)
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox"> Двухфакторка включена везде
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox"> VPN в публичных сетях
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox"> Регулярные бэкапы
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox"> Обновления ПО не отключены
+                            </label>
+                        </div>
+                        
+                        <p class="final-message">🕒 Ты потратил ~15 минут, но теперь твои данные в безопасности!</p>
+                    </div>
+                </div>
             </div>
-
-            <!-- Навигационные стрелки (всегда видны) -->
-            <button class="nav-arrow prev" id="prevSlide" disabled>←</button>
-            <button class="nav-arrow next" id="nextSlide">→</button>
-
-            <!-- Нижняя панель с индикаторами -->
-            <div class="bottom-panel">
-                <div class="slide-dots" id="slideDots"></div>
-                <button class="presentation-toggle" id="presentationToggle" title="Режим презентации (скрыть интерфейс)">
-                    <span class="icon">🎬</span>
-                    <span class="label">Режим презентации</span>
-                </button>
-            </div>
+            
+            <!-- Стрелки навигации -->
+            <button class="nav-arrow nav-prev" id="navPrev" disabled>←</button>
+            <button class="nav-arrow nav-next" id="navNext">→</button>
+            
+            <!-- Точки навигации -->
+            <div class="dots-navigation" id="dotsNav"></div>
         </div>
     </div>
 
