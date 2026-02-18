@@ -32,16 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Стиль для анимации дождя
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes rainDrop {
-            0% { transform: translateY(-10vh); opacity: 1; }
-            100% { transform: translateY(110vh); opacity: 0; }
-        }
-    `;
-    document.head.appendChild(style);
-    
     // ========== НАВИГАЦИЯ ПО СЛАЙДАМ ==========
     const slides = document.querySelectorAll('.slide');
     const prevBtn = document.getElementById('prevBtn');
@@ -68,9 +58,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (index < 0 || index >= totalSlides) return;
         
         // Эффект глитча при переключении
-        document.querySelector('.glass-panel').style.animation = 'none';
+        const panel = document.querySelector('.glass-panel');
+        panel.style.animation = 'none';
         setTimeout(() => {
-            document.querySelector('.glass-panel').style.animation = 'panelGlow 4s ease-in-out infinite';
+            panel.style.animation = 'panelGlow 4s ease-in-out infinite';
         }, 10);
         
         slides.forEach((slide, i) => {
@@ -116,24 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
         phishLink.addEventListener('click', (e) => {
             e.preventDefault();
             phishReveal.classList.add('show');
-            
-            // Эффект взлома
-            document.body.style.animation = 'hackFlash 0.1s 3';
-            setTimeout(() => {
-                document.body.style.animation = '';
-            }, 300);
         });
     }
-    
-    // Стиль для вспышки
-    const hackFlashStyle = document.createElement('style');
-    hackFlashStyle.textContent = `
-        @keyframes hackFlash {
-            0%, 100% { background: #0a0a0a; }
-            50% { background: #0f0; }
-        }
-    `;
-    document.head.appendChild(hackFlashStyle);
     
     // ========== СОЦИАЛЬНАЯ ИНЖЕНЕРИЯ ==========
     const exampleBtns = document.querySelectorAll('.example-btn');
@@ -188,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const encrypted = btoa(text);
             encryptedText.textContent = encrypted;
             
-            // Анимация шифрования
             encryptedText.style.animation = 'glitch 0.3s 3';
             setTimeout(() => {
                 encryptedText.style.animation = '';
@@ -265,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
-                goToSlide(i);
+                goToSlide(i + 1);
             });
         }
     }
