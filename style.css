@@ -1,0 +1,240 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #0a1e3f 0%, #1b4a6f 50%, #2b5f88 100%);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard {
+    max-width: 1600px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 3.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    padding: 2.5rem;
+    color: white;
+}
+
+.key-info {
+    background: rgba(255, 200, 70, 0.25);
+    border: 2px solid #ffdb9f;
+    border-radius: 3rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.key-info span {
+    font-size: 2rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.key-info p {
+    font-size: 1.5rem;
+}
+
+.simulations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.card {
+    background: rgba(10, 30, 55, 0.45);
+    backdrop-filter: blur(15px);
+    border-radius: 2rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 1.5rem;
+}
+
+.card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.simulator {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+}
+
+.buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+}
+
+.btn {
+    background: rgba(220, 240, 255, 0.25);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 3rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.15s;
+    flex: 1;
+    min-width: 140px;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.45);
+    transform: scale(1.02);
+}
+
+.btn.red {
+    background: rgba(220, 60, 60, 0.6);
+    border-color: #ffb6b6;
+}
+
+.btn.green {
+    background: rgba(40, 180, 120, 0.6);
+    border-color: #b0ffd0;
+}
+
+.password-display, .url-display, .wifi-status, .social-result, .update-status {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 2rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-size: 1.3rem;
+    text-align: center;
+    border: 1px solid #88aaff;
+}
+
+.indicators {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.indicators span {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+}
+
+h2 {
+    font-size: 2.2rem;
+    border-left: 10px solid #ffd966;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+}
+
+.counter {
+    font-size: 1.8rem;
+    text-align: center;
+    background: rgba(0,0,0,0.3);
+    padding: 1rem;
+    border-radius: 4rem;
+    margin-bottom: 2rem;
+}
+
+.poll-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.option-card {
+    background: rgba(10, 30, 55, 0.45);
+    backdrop-filter: blur(15px);
+    border-radius: 2rem;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    padding: 2rem;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.option-card:hover {
+    border-color: #ffd966;
+    background: rgba(30, 60, 100, 0.6);
+}
+
+.option-card.selected {
+    border-color: #4caf50;
+    background: rgba(40, 180, 120, 0.4);
+}
+
+.option-card.wrong {
+    border-color: #f44336;
+    background: rgba(220, 60, 60, 0.4);
+}
+
+.option-number {
+    font-size: 1.5rem;
+    color: #ffd966;
+    margin-bottom: 1rem;
+}
+
+.option-text {
+    font-size: 1.8rem;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.explanation {
+    grid-column: span 2;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 2rem;
+    padding: 2rem;
+    font-size: 1.8rem;
+    text-align: center;
+    border: 2px solid #ffd966;
+    min-height: 100px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 1.5rem;
+    color: rgba(255,255,255,0.8);
+    border-top: 2px solid rgba(255,255,255,0.2);
+    padding-top: 2rem;
+}
+
+@media (max-width: 1000px) {
+    .simulations-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .simulations-grid {
+        grid-template-columns: 1fr;
+    }
+    .poll-grid {
+        grid-template-columns: 1fr;
+    }
+    .explanation {
+        grid-column: span 1;
+    }
+}
