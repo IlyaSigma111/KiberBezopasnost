@@ -54,7 +54,6 @@ const pollQuestions = [
 ];
 
 let currentSlide = 0;
-let twofaEnabled = false;
 let userStats = { correct: 0, total: 0 };
 
 const content = document.getElementById('content');
@@ -466,6 +465,16 @@ function renderUpdates() {
     };
 }
 
+function renderDefault(title) {
+    content.innerHTML = `
+        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <h2>${title}</h2>
+            <p style="font-size: 28px;">Симуляция готовится</p>
+            <div style="font-size: 60px; margin: 30px;">🔧</div>
+        </div>
+    `;
+}
+
 function renderPoll(pollId) {
     const questions = pollQuestions[pollId];
     let qIndex = 0;
@@ -523,16 +532,6 @@ function renderPoll(pollId) {
         }
     }
     showQuestion();
-}
-
-function renderDefault(title) {
-    content.innerHTML = `
-        <div class="glass-card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-            <h2>${title}</h2>
-            <p style="font-size: 28px;">Симуляция готовится</p>
-            <div style="font-size: 60px; margin: 30px;">🔧</div>
-        </div>
-    `;
 }
 
 function renderResults() {
