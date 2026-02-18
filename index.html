@@ -27,7 +27,7 @@
     </div>
 
     <div class="presentation-wrapper">
-        <!-- Основной контейнер -->
+        <!-- Основной контейнер с мегаглассморфизмом -->
         <div class="glass-panel" id="glassPanel">
             
             <!-- Верхняя панель -->
@@ -39,7 +39,7 @@
                 
                 <div class="progress-area">
                     <div class="progress-bar-container">
-                        <div class="progress-fill" id="progressFill" style="width: 5%"></div>
+                        <div class="progress-fill" id="progressFill" style="width: 4%"></div>
                     </div>
                     <div class="slide-counter" id="slideCounter">1/24</div>
                 </div>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 
-                <!-- СЛАЙД 2: Фишинг с анимацией -->
+                <!-- СЛАЙД 2: Фишинг -->
                 <div class="slide" data-slide="2">
                     <div class="slide-content">
                         <div class="slide-tag">Фишинг · 2 мин</div>
@@ -433,7 +433,6 @@
                     </div>
                 </div>
                 
-                <!-- СЛАЙД 12-21: Викторина с анимациями -->
                 <!-- СЛАЙД 12: Викторина 1 -->
                 <div class="slide" data-slide="12">
                     <div class="slide-content quiz-slide">
@@ -447,14 +446,14 @@
                         </div>
                         
                         <div class="quiz-pair">
-                            <div class="quiz-option" data-correct="false" data-id="q1-left">
+                            <div class="quiz-option" data-correct="false">
                                 <div class="option-glitch"></div>
                                 <div class="option-password">qwerty123</div>
                                 <div class="option-desc">простой, словарный</div>
                                 <div class="hack-level low">Уровень: 💩</div>
                             </div>
                             <div class="quiz-vs">⚔️</div>
-                            <div class="quiz-option" data-correct="true" data-id="q1-right">
+                            <div class="quiz-option" data-correct="true">
                                 <div class="option-glitch"></div>
                                 <div class="option-password">G7$k2!mN9</div>
                                 <div class="option-desc">сложный, 9 символов, спецсимволы</div>
@@ -521,8 +520,166 @@
                     </div>
                 </div>
                 
-                <!-- Продолжение для слайдов 15-21 (аналогично, но для краткости пропущу - в коде они будут) -->
-                <!-- В реальном коде здесь будут все 10 слайдов викторины -->
+                <!-- СЛАЙД 15: Викторина 4 -->
+                <div class="slide" data-slide="15">
+                    <div class="slide-content quiz-slide">
+                        <div class="slide-tag">Викторина · Вопрос 4/10</div>
+                        <h2 class="slide-title">🤔 <span class="neon-question">Какой пароль надежнее?</span></h2>
+                        
+                        <div class="quiz-pair">
+                            <div class="quiz-option" data-correct="false">
+                                <div class="option-password">admin</div>
+                                <div class="option-desc">стандартный логин</div>
+                            </div>
+                            <div class="quiz-vs">VS</div>
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-password">P@ssw0rd!$</div>
+                                <div class="option-desc">замены и символы</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-feedback hidden" id="quizFeedback4"></div>
+                        <button class="glass-btn next-quiz-btn hidden" id="nextFromQuiz4">→ ДАЛЕЕ</button>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 16: Викторина 5 -->
+                <div class="slide" data-slide="16">
+                    <div class="slide-content quiz-slide">
+                        <div class="slide-tag">Викторина · Вопрос 5/10</div>
+                        <h2 class="slide-title">🤔 <span class="neon-question">Какой пароль надежнее?</span></h2>
+                        
+                        <div class="quiz-pair">
+                            <div class="quiz-option" data-correct="false">
+                                <div class="option-password">letmein</div>
+                                <div class="option-desc">словарное слово</div>
+                            </div>
+                            <div class="quiz-vs">VS</div>
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-password">XyZ$9#hL2p</div>
+                                <div class="option-desc">случайный набор</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-feedback hidden" id="quizFeedback5"></div>
+                        <button class="glass-btn next-quiz-btn hidden" id="nextFromQuiz5">→ ДАЛЕЕ</button>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 17: Викторина 6 -->
+                <div class="slide" data-slide="17">
+                    <div class="slide-content quiz-slide">
+                        <div class="slide-tag">Викторина · Вопрос 6/10</div>
+                        <h2 class="slide-title">🤔 <span class="neon-question">Какой пароль надежнее?</span></h2>
+                        
+                        <div class="quiz-pair">
+                            <div class="quiz-option" data-correct="false">
+                                <div class="option-password">monkey</div>
+                                <div class="option-desc">словарное слово</div>
+                            </div>
+                            <div class="quiz-vs">VS</div>
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-password">M0nK3y!$trong</div>
+                                <div class="option-desc">длинный с заменами</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-feedback hidden" id="quizFeedback6"></div>
+                        <button class="glass-btn next-quiz-btn hidden" id="nextFromQuiz6">→ ДАЛЕЕ</button>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 18: Викторина 7 -->
+                <div class="slide" data-slide="18">
+                    <div class="slide-content quiz-slide">
+                        <div class="slide-tag">Викторина · Вопрос 7/10</div>
+                        <h2 class="slide-title">🤔 <span class="neon-question">Какой пароль надежнее?</span></h2>
+                        
+                        <div class="quiz-pair">
+                            <div class="quiz-option" data-correct="false">
+                                <div class="option-password">football</div>
+                                <div class="option-desc">словарное слово</div>
+                            </div>
+                            <div class="quiz-vs">VS</div>
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-password">F00tB@ll#1</div>
+                                <div class="option-desc">с заменой букв на цифры</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-feedback hidden" id="quizFeedback7"></div>
+                        <button class="glass-btn next-quiz-btn hidden" id="nextFromQuiz7">→ ДАЛЕЕ</button>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 19: Викторина 8 -->
+                <div class="slide" data-slide="19">
+                    <div class="slide-content quiz-slide">
+                        <div class="slide-tag">Викторина · Вопрос 8/10</div>
+                        <h2 class="slide-title">🤔 <span class="neon-question">Какой пароль надежнее?</span></h2>
+                        
+                        <div class="quiz-pair">
+                            <div class="quiz-option" data-correct="false">
+                                <div class="option-password">111111</div>
+                                <div class="option-desc">повторяющиеся цифры</div>
+                            </div>
+                            <div class="quiz-vs">VS</div>
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-password">Str0ng!P@ss</div>
+                                <div class="option-desc">смешанный регистр, символы</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-feedback hidden" id="quizFeedback8"></div>
+                        <button class="glass-btn next-quiz-btn hidden" id="nextFromQuiz8">→ ДАЛЕЕ</button>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 20: Викторина 9 -->
+                <div class="slide" data-slide="20">
+                    <div class="slide-content quiz-slide">
+                        <div class="slide-tag">Викторина · Вопрос 9/10</div>
+                        <h2 class="slide-title">🤔 <span class="neon-question">Какой пароль надежнее?</span></h2>
+                        
+                        <div class="quiz-pair">
+                            <div class="quiz-option" data-correct="false">
+                                <div class="option-password">sunshine</div>
+                                <div class="option-desc">словарное слово</div>
+                            </div>
+                            <div class="quiz-vs">VS</div>
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-password">SunsH1n3&*</div>
+                                <div class="option-desc">с заменой и символами</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-feedback hidden" id="quizFeedback9"></div>
+                        <button class="glass-btn next-quiz-btn hidden" id="nextFromQuiz9">→ ДАЛЕЕ</button>
+                    </div>
+                </div>
+                
+                <!-- СЛАЙД 21: Викторина 10 -->
+                <div class="slide" data-slide="21">
+                    <div class="slide-content quiz-slide">
+                        <div class="slide-tag">Викторина · Вопрос 10/10</div>
+                        <h2 class="slide-title">🤔 <span class="neon-question">Какой пароль надежнее?</span></h2>
+                        
+                        <div class="quiz-pair">
+                            <div class="quiz-option" data-correct="false">
+                                <div class="option-password">qwerty</div>
+                                <div class="option-desc">последовательность на клавиатуре</div>
+                            </div>
+                            <div class="quiz-vs">VS</div>
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-password">Qw3rTy!@#</div>
+                                <div class="option-desc">с регистром и символами</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-feedback hidden" id="quizFeedback10"></div>
+                        <button class="glass-btn next-quiz-btn hidden" id="nextFromQuiz10">→ ДАЛЕЕ</button>
+                    </div>
+                </div>
                 
                 <!-- СЛАЙД 22: VPN -->
                 <div class="slide" data-slide="22">
@@ -613,6 +770,10 @@
                                 <span class="check-emoji">🔲</span> Антивирус
                                 <span class="check-code">[*]</span>
                             </div>
+                            <div class="checklist-item cyber-item">
+                                <span class="check-emoji">🔲</span> Проверка на haveibeenpwned
+                                <span class="check-code">[*]</span>
+                            </div>
                         </div>
                         
                         <div class="final-message cyber-message">
@@ -626,14 +787,14 @@
             
             <!-- Нижняя навигация -->
             <div class="bottom-nav">
-                <button class="nav-btn prev-btn cyber-nav" id="prevBtn" disabled>
+                <button class="nav-btn cyber-nav" id="prevBtn" disabled>
                     <span class="nav-icon">←</span>
                     <span class="nav-text">НАЗАД</span>
                 </button>
                 
                 <div class="dots-container" id="dotsContainer"></div>
                 
-                <button class="nav-btn next-btn cyber-nav" id="nextBtn">
+                <button class="nav-btn cyber-nav" id="nextBtn">
                     <span class="nav-text">ДАЛЕЕ</span>
                     <span class="nav-icon">→</span>
                 </button>
