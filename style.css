@@ -1,4 +1,3 @@
-/* style.css */
 * {
     margin: 0;
     padding: 0;
@@ -7,376 +6,434 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(145deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
-    color: #1a1a2e;
+    justify-content: center;
+    color: #fff;
 }
 
-/* Мегаглассморфизм */
-.container {
-    max-width: 1200px;
+.app {
     width: 100%;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(15px) saturate(180%);
-    -webkit-backdrop-filter: blur(15px) saturate(180%);
-    border-radius: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.6);
-    padding: 30px;
-    transition: all 0.3s ease;
+    max-width: 1300px;
+    padding: 20px;
 }
 
-/* Режим презентации (скрывает элементы интерфейса) */
-.container.presentation-mode .glass-header p,
-.container.presentation-mode .glass-footer,
-.container.presentation-mode .presentation-btn {
+/* Главный стеклянный контейнер */
+.glass-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    padding: 30px;
+    position: relative;
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Заголовок */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff, #a8ede0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.slide-counter {
+    font-size: 1.2rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 20px;
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Область слайдов */
+.slides-wrapper {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.95);
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.slide-description {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: rgba(255,255,255,0.8);
+    max-width: 80%;
+}
+
+/* Интерактивная область */
+.interactive-area {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Стрелки навигации */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.nav-arrow:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.nav-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+/* Нижняя панель */
+.bottom-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+.slide-dots {
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.3);
+    box-shadow: 0 0 15px white;
+}
+
+/* Кнопка презентации */
+.presentation-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 40px;
+    padding: 10px 25px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.presentation-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Режим презентации (скрываем элементы интерфейса) */
+.glass-container.presentation-mode .header,
+.glass-container.presentation-mode .bottom-panel,
+.glass-container.presentation-mode .nav-arrow {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
 }
 
-.container.presentation-mode .content-block {
-    background: rgba(255, 255, 255, 0.15);
+.glass-container.presentation-mode .slide h2 {
+    font-size: 2.5rem;
 }
 
-/* Кнопка презентации */
-.presentation-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 100;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.5);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    font-size: 28px;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.presentation-btn:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.5);
-}
-
-/* Стекло для шапки и подвала */
-.glass-header, .glass-footer {
-    text-align: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.glass-footer {
-    margin-top: 40px;
-    margin-bottom: 0;
-    font-size: 0.9rem;
-}
-
-.glass-header h1 {
-    font-weight: 700;
-    font-size: 2.2rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Блоки контента */
-.content-block {
+/* Стеклянные кнопки */
+.glass-btn {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    padding: 12px 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+/* ========== ИНТЕРАКТИВНЫЕ ЭЛЕМЕНТЫ ========== */
+
+/* Фишинг */
+.phishing-demo {
+    text-align: center;
+}
+
+.link-card {
+    background: rgba(255,255,255,0.1);
     border-radius: 30px;
     padding: 30px;
-    margin-bottom: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
-}
-
-.content-block h2 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.content-block p {
-    line-height: 1.7;
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    font-weight: 400;
-    color: #16213e;
-}
-
-/* Интерактивные примеры */
-.interactive-example {
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 20px;
-    padding: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.example-title {
-    font-weight: 600;
-    margin-bottom: 10px;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #0f3460;
-}
-
-/* Пример 1: Фишинг */
-.link-container {
-    position: relative;
-    display: inline-block;
+    margin-top: 20px;
 }
 
 .phish-link {
-    font-size: 1.2rem;
-    color: #0d335d;
-    font-weight: 600;
+    font-size: 1.5rem;
+    color: #a8ede0;
     text-decoration: underline;
     text-decoration-style: dotted;
+    cursor: pointer;
 }
 
-.tooltip {
-    visibility: hidden;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    color: #fff;
-    text-align: center;
-    border-radius: 12px;
-    padding: 10px 15px;
-    position: absolute;
-    z-index: 1;
-    bottom: 150%;
-    left: 0;
-    white-space: nowrap;
-    font-size: 0.9rem;
-    border: 1px solid rgba(255,255,255,0.2);
+.real-url {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
 }
 
-.link-container:hover .tooltip {
-    visibility: visible;
-}
-
-.danger {
+.url-text {
     color: #ff6b6b;
     font-weight: 600;
 }
 
-/* Пример 2: 2FA */
-.fake-login {
+/* 2FA */
+.twofa-demo {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.login-sim {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.fake-login input {
-    padding: 12px 15px;
-    border-radius: 20px;
-    border: none;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
-    flex: 1 1 200px;
-    font-family: 'Inter', sans-serif;
-    border: 1px solid rgba(255,255,255,0.5);
-}
-
-.glass-button {
-    padding: 12px 25px;
+.login-sim input {
+    flex: 1;
+    padding: 15px;
     border-radius: 30px;
     border: none;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(5px);
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-    border: 1px solid rgba(255,255,255,0.5);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    font-family: 'Inter', sans-serif;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
-.glass-button:hover {
-    background: rgba(255, 255, 255, 0.7);
-    transform: translateY(-2px);
+.twofa-panel {
+    background: rgba(0,0,0,0.2);
+    border-radius: 30px;
+    padding: 20px;
 }
 
-.fake-2fa {
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(255,255,240,0.3);
-    border-radius: 20px;
-}
-
-.fake-2fa input {
-    width: 150px;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    background: rgba(255,255,255,0.5);
-    margin-right: 10px;
-}
-
-.message {
-    margin-top: 10px;
-    font-size: 0.95rem;
-    font-weight: 500;
-}
-
-/* Пример 3: Шифрование */
-.encryption-box {
+.code-input {
     display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 10px;
     margin: 15px 0;
 }
 
-.encryption-box span {
-    font-size: 1.4rem;
-    font-weight: 600;
-    background: rgba(0,0,0,0.1);
-    padding: 10px 20px;
-    border-radius: 40px;
-}
-
-.encryption-result {
-    font-size: 1.4rem;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.3);
-    padding: 15px 25px;
-    border-radius: 40px;
-    word-break: break-all;
-    font-family: monospace;
-    letter-spacing: 2px;
-}
-
-/* Пример 4: Wi-Fi слайдер */
-.slider {
-    width: 100%;
-    margin: 20px 0;
-    -webkit-appearance: none;
-    height: 10px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.5);
-}
-
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    cursor: pointer;
-    border: 2px solid #667eea;
-}
-
-.hacker-view {
-    background: rgba(0, 0, 0, 0.2);
+.code-input input {
+    flex: 1;
     padding: 15px;
-    border-radius: 15px;
-    min-height: 70px;
+    border-radius: 30px;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+.twofa-message {
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+/* Шифрование */
+.encryption-demo {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    font-family: monospace;
+    gap: 20px;
 }
 
-.hidden {
+.message-box {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.original-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: rgba(255,255,255,0.1);
+    padding: 15px 30px;
+    border-radius: 50px;
+}
+
+.result-box {
+    background: rgba(0,0,0,0.3);
+    border-radius: 30px;
+    padding: 20px;
+    font-family: monospace;
+    font-size: 1.2rem;
+    word-break: break-all;
+    min-height: 80px;
+}
+
+/* Wi-Fi */
+.wifi-slider {
+    width: 100%;
+    margin: 20px 0;
+    height: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+}
+
+.hacker-window {
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+    padding: 20px;
+    min-height: 120px;
+}
+
+.hacker-data {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.3);
     display: none;
 }
 
-/* Блок 5: Викторина (карточки) */
+.hacker-data.visible {
+    display: block;
+}
+
+/* Викторина */
 .quiz-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
     margin-top: 20px;
 }
 
 .quiz-card {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 25px;
     padding: 20px;
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.2);
     cursor: pointer;
-    transition: 0.2s;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s;
 }
 
 .quiz-card:hover {
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.quiz-card.selected-correct {
+.quiz-card.correct {
     background: rgba(0, 255, 0, 0.2);
-    border: 2px solid #00b894;
+    border-color: #00ff88;
 }
 
-.quiz-card.selected-wrong {
-    background: rgba(255, 0, 0, 0.15);
-    border: 2px solid #d63031;
+.quiz-card.wrong {
+    background: rgba(255, 0, 0, 0.2);
+    border-color: #ff4444;
 }
 
 .password-pair {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
 
 .password-item {
     flex: 1;
-    text-align: center;
     padding: 15px;
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(0,0,0,0.3);
     font-family: monospace;
-    font-size: 0.95rem;
-    font-weight: 500;
-    border: 1px solid white;
-}
-
-.password-item.weak {
-    background: rgba(255, 99, 71, 0.3);
-}
-
-.password-item.strong {
-    background: rgba(50, 205, 50, 0.25);
+    text-align: center;
 }
 
 .vs {
-    font-weight: 800;
     font-size: 1.2rem;
-    color: #2c3e50;
+    font-weight: 800;
+    color: rgba(255,255,255,0.6);
 }
 
-/* Адаптив */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-    .glass-header h1 {
-        font-size: 1.6rem;
-    }
-    .password-pair {
-        flex-direction: column;
-    }
+.quiz-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.1);
+    text-align: center;
+    font-weight: 500;
 }
