@@ -1,49 +1,91 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // ========== ГЕНЕРАЦИЯ МАТРИЧНОГО КОДА ==========
+    const matrixElement = document.getElementById('matrixCode');
+    if (matrixElement) {
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        let matrixHTML = '';
+        for (let i = 0; i < 100; i++) {
+            let line = '';
+            for (let j = 0; j < 50; j++) {
+                line += chars[Math.floor(Math.random() * chars.length)];
+            }
+            matrixHTML += line + '\n';
+        }
+        matrixElement.textContent = matrixHTML;
+    }
+    
+    // ========== СОЗДАНИЕ БИНАРНОГО ДОЖДЯ ==========
+    const binaryRain = document.getElementById('binaryRain');
+    if (binaryRain) {
+        for (let i = 0; i < 50; i++) {
+            const drop = document.createElement('div');
+            drop.style.position = 'absolute';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.top = '-10%';
+            drop.style.color = '#0f0';
+            drop.style.fontSize = '20px';
+            drop.style.fontFamily = 'monospace';
+            drop.style.animation = `rainDrop ${5 + Math.random() * 5}s linear infinite`;
+            drop.style.animationDelay = Math.random() * 5 + 's';
+            drop.textContent = Math.random() > 0.5 ? '1' : '0';
+            binaryRain.appendChild(drop);
+        }
+    }
+    
+    // Стиль для анимации дождя
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes rainDrop {
+            0% { transform: translateY(-10vh); opacity: 1; }
+            100% { transform: translateY(110vh); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+    
     // ========== НАВИГАЦИЯ ПО СЛАЙДАМ ==========
     const slides = document.querySelectorAll('.slide');
-    const prevBtn = document.getElementById('navPrev');
-    const nextBtn = document.getElementById('navNext');
-    const currentSpan = document.getElementById('currentSlide');
-    const totalSpan = document.getElementById('totalSlides');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slideCounter = document.getElementById('slideCounter');
     const progressFill = document.getElementById('progressFill');
-    const dotsNav = document.getElementById('dotsNav');
+    const dotsContainer = document.getElementById('dotsContainer');
     
     let currentIndex = 0;
     const totalSlides = slides.length;
-    totalSpan.textContent = totalSlides;
     
-    // Создаем точки
+    // Создаем точки навигации
     for (let i = 0; i < totalSlides; i++) {
         const dot = document.createElement('span');
-        dot.classList.add('dot');
+        dot.classList.add('dot-nav');
         dot.dataset.index = i;
         dot.addEventListener('click', () => goToSlide(i));
-        dotsNav.appendChild(dot);
+        dotsContainer.appendChild(dot);
     }
     
-    const dots = document.querySelectorAll('.dot');
+    const dots = document.querySelectorAll('.dot-nav');
     
     function goToSlide(index) {
         if (index < 0 || index >= totalSlides) return;
         
-        // Обновляем слайды
+        // Эффект глитча при переключении
+        document.querySelector('.glass-panel').style.animation = 'none';
+        setTimeout(() => {
+            document.querySelector('.glass-panel').style.animation = 'panelGlow 4s ease-in-out infinite';
+        }, 10);
+        
         slides.forEach((slide, i) => {
             slide.classList.toggle('active', i === index);
         });
         
-        // Обновляем счетчик
         currentIndex = index;
-        currentSpan.textContent = index + 1;
+        slideCounter.textContent = (index + 1) + '/' + totalSlides;
         
-        // Обновляем прогресс
         const progress = ((index + 1) / totalSlides) * 100;
         progressFill.style.width = progress + '%';
         
-        // Обновляем кнопки
         prevBtn.disabled = index === 0;
         nextBtn.disabled = index === totalSlides - 1;
         
-        // Обновляем точки
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
         });
@@ -53,174 +95,214 @@ document.addEventListener('DOMContentLoaded', function() {
     nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
     
     // ========== РЕЖИМ ПРЕЗЕНТАЦИИ ==========
-    const presentationBtn = document.getElementById('presentationBtn');
-    const mainContainer = document.querySelector('.main-container');
+    const presentationBtn = document.getElementById('presentationModeBtn');
+    const glassPanel = document.getElementById('glassPanel');
     
     presentationBtn.addEventListener('click', () => {
-        mainContainer.classList.toggle('presentation-mode');
-        presentationBtn.innerHTML = mainContainer.classList.contains('presentation-mode') 
-            ? '<span>🔲</span><span class="btn-text">Выйти</span>' 
-            : '<span>🎬</span><span class="btn-text">Презентация</span>';
+        glassPanel.classList.toggle('presentation-mode');
+        
+        if (glassPanel.classList.contains('presentation-mode')) {
+            presentationBtn.innerHTML = '<span class="btn-icon">🔲</span><span class="btn-label">Выйти</span>';
+        } else {
+            presentationBtn.innerHTML = '<span class="btn-icon">🎬</span><span class="btn-label">Полный экран</span>';
+        }
     });
     
     // ========== ФИШИНГ ==========
     const phishLink = document.getElementById('phishLink');
-    phishLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('⚠️ ФИШИНГ! Это поддельная ссылка. Настоящий URL: http://sberbank.ru.fake-id432.ru');
-    });
+    const phishReveal = document.getElementById('phishReveal');
+    
+    if (phishLink) {
+        phishLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            phishReveal.classList.add('show');
+            
+            // Эффект взлома
+            document.body.style.animation = 'hackFlash 0.1s 3';
+            setTimeout(() => {
+                document.body.style.animation = '';
+            }, 300);
+        });
+    }
+    
+    // Стиль для вспышки
+    const hackFlashStyle = document.createElement('style');
+    hackFlashStyle.textContent = `
+        @keyframes hackFlash {
+            0%, 100% { background: #0a0a0a; }
+            50% { background: #0f0; }
+        }
+    `;
+    document.head.appendChild(hackFlashStyle);
     
     // ========== СОЦИАЛЬНАЯ ИНЖЕНЕРИЯ ==========
-    const showExample1 = document.getElementById('showExample1');
-    const showExample2 = document.getElementById('showExample2');
-    const exampleHidden1 = document.getElementById('exampleHidden1');
-    const exampleHidden2 = document.getElementById('exampleHidden2');
+    const exampleBtns = document.querySelectorAll('.example-btn');
     
-    showExample1.addEventListener('click', () => {
-        exampleHidden1.classList.toggle('show');
-        showExample1.textContent = exampleHidden1.classList.contains('show') ? 'Скрыть' : 'Показать пример';
-    });
-    
-    showExample2.addEventListener('click', () => {
-        exampleHidden2.classList.toggle('show');
-        showExample2.textContent = exampleHidden2.classList.contains('show') ? 'Скрыть' : 'Показать пример';
+    exampleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const exampleId = btn.dataset.example;
+            const exampleFull = document.getElementById('example' + exampleId);
+            
+            if (exampleFull) {
+                exampleFull.classList.toggle('hidden');
+                btn.textContent = exampleFull.classList.contains('hidden') ? 'Разобрать' : 'Скрыть';
+            }
+        });
     });
     
     // ========== ДВУХФАКТОРКА ==========
-    const loginBtn2FA = document.getElementById('simulateLogin2FA');
-    const twofaPanel = document.getElementById('twofaPanel');
-    const verifyBtn2FA = document.getElementById('verify2FA');
-    const twofaCode = document.getElementById('twofaCode');
+    const loginBtn = document.getElementById('loginBtn');
+    const twofaStep = document.getElementById('twofaStep');
+    const verifyBtn = document.getElementById('verifyBtn');
+    const codeInput = document.getElementById('codeInput');
     const twofaMessage = document.getElementById('twofaMessage');
     
-    loginBtn2FA.addEventListener('click', () => {
-        twofaPanel.style.display = 'block';
-        twofaMessage.textContent = 'Код отправлен (подсказка: 123456)';
-        twofaMessage.style.color = '#a8ede0';
-    });
-    
-    verifyBtn2FA.addEventListener('click', () => {
-        if (twofaCode.value === '123456') {
-            twofaMessage.textContent = '✅ Доступ разрешен! 2FA сработала.';
-            twofaMessage.style.color = '#00C851';
-        } else {
-            twofaMessage.textContent = '❌ Неверный код! Доступ заблокирован.';
-            twofaMessage.style.color = '#ff4444';
-        }
-    });
-    
-    // ========== ШИФРОВАНИЕ ==========
-    const encryptBtn = document.getElementById('encryptMessageBtn');
-    const originalMessage = document.getElementById('originalMessage');
-    const encryptedMessage = document.getElementById('encryptedMessage');
-    
-    encryptBtn.addEventListener('click', () => {
-        const text = originalMessage.textContent;
-        // Простое base64 для демонстрации
-        const encrypted = btoa(text);
-        encryptedMessage.innerHTML = `<span>Зашифрованное:</span> <code>${encrypted}</code>`;
-    });
-    
-    // ========== Wi-Fi ХАКЕР ==========
-    const slider = document.getElementById('hackerSlider');
-    const dataLight = document.getElementById('wifiDataLight');
-    const dataMedium = document.getElementById('wifiDataMedium');
-    const dataFull = document.getElementById('wifiDataFull');
-    const sliderValue = document.getElementById('sliderValue');
-    
-    slider.addEventListener('input', (e) => {
-        const value = parseInt(e.target.value);
-        sliderValue.textContent = value + '%';
-        
-        // Сбрасываем классы
-        dataLight.classList.remove('visible');
-        dataMedium.classList.remove('visible');
-        dataFull.classList.remove('visible');
-        
-        // Показываем в зависимости от значения
-        if (value >= 0) dataLight.classList.add('visible');
-        if (value >= 33) dataMedium.classList.add('visible');
-        if (value >= 66) dataFull.classList.add('visible');
-    });
-    
-    // ========== ВИКТОРИНА ==========
-    const questions = [
-        { left: 'qwerty123', right: 'G7$k2!mN9' },
-        { left: 'password', right: 'Tr0ub4dor&3' },
-        { left: '12345678', right: 'Ilov3C@ts!' },
-        { left: 'admin', right: 'P@ssw0rd!$' },
-        { left: 'letmein', right: 'XyZ$9#hL2p' },
-        { left: 'monkey', right: 'M0nK3y!$trong' },
-        { left: 'football', right: 'F00tB@ll#1' },
-        { left: '111111', right: 'Str0ng!P@ss' },
-        { left: 'sunshine', right: 'SunsH1n3&*' },
-        { left: 'qwerty', right: 'Qw3rTy!@#' }
-    ];
-    
-    // Разделяем на 3 части
-    const part1 = questions.slice(0, 4);
-    const part2 = questions.slice(4, 7);
-    const part3 = questions.slice(7, 10);
-    
-    function createQuizCard(q, index, container) {
-        const card = document.createElement('div');
-        card.classList.add('quiz-card');
-        
-        const pairDiv = document.createElement('div');
-        pairDiv.classList.add('password-pair');
-        
-        const leftItem = document.createElement('div');
-        leftItem.classList.add('password-item');
-        leftItem.textContent = q.left;
-        
-        const vsSpan = document.createElement('span');
-        vsSpan.classList.add('vs');
-        vsSpan.textContent = 'VS';
-        
-        const rightItem = document.createElement('div');
-        rightItem.classList.add('password-item');
-        rightItem.textContent = q.right;
-        
-        pairDiv.appendChild(leftItem);
-        pairDiv.appendChild(vsSpan);
-        pairDiv.appendChild(rightItem);
-        card.appendChild(pairDiv);
-        
-        card.addEventListener('click', () => {
-            // Просто подсвечиваем зеленым (правый всегда сильнее)
-            card.classList.add('correct');
-            document.getElementById('quizMessage').textContent = `✅ Правильно! "${q.right}" надежнее, чем "${q.left}"`;
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            twofaStep.classList.remove('hidden');
+            twofaMessage.textContent = 'Введи код из приложения';
+            twofaMessage.style.color = '';
         });
-        
-        return card;
     }
     
-    // Заполняем викторины
-    const quiz1 = document.getElementById('quiz1');
-    const quiz2 = document.getElementById('quiz2');
-    const quiz3 = document.getElementById('quiz3');
+    if (verifyBtn) {
+        verifyBtn.addEventListener('click', () => {
+            if (codeInput.value === '123456') {
+                twofaMessage.textContent = '✅ ACCESS GRANTED! 2FA сработала.';
+                twofaMessage.style.color = '#0f0';
+            } else {
+                twofaMessage.textContent = '❌ ACCESS DENIED! Неверный код.';
+                twofaMessage.style.color = '#ff0000';
+            }
+        });
+    }
     
-    part1.forEach(q => quiz1.appendChild(createQuizCard(q)));
-    part2.forEach(q => quiz2.appendChild(createQuizCard(q)));
-    part3.forEach(q => quiz3.appendChild(createQuizCard(q)));
+    // ========== ШИФРОВАНИЕ ==========
+    const encryptBtn = document.getElementById('encryptBtn');
+    const originalText = document.getElementById('originalText');
+    const encryptedText = document.getElementById('encryptedText');
     
-    // ========== ЭФФЕКТ КУРСОРА ==========
-    const cursorGlow = document.querySelector('.cursor-glow');
+    if (encryptBtn) {
+        encryptBtn.addEventListener('click', () => {
+            const text = originalText.textContent;
+            const encrypted = btoa(text);
+            encryptedText.textContent = encrypted;
+            
+            // Анимация шифрования
+            encryptedText.style.animation = 'glitch 0.3s 3';
+            setTimeout(() => {
+                encryptedText.style.animation = '';
+            }, 300);
+        });
+    }
     
-    document.addEventListener('mousemove', (e) => {
-        cursorGlow.style.left = e.clientX + 'px';
-        cursorGlow.style.top = e.clientY + 'px';
-    });
+    // ========== Wi-Fi ХАКЕР ==========
+    const wifiSlider = document.getElementById('wifiSlider');
+    const sliderValue = document.getElementById('sliderValue');
+    const hackerLine1 = document.getElementById('hackerLine1');
+    const hackerLine2 = document.getElementById('hackerLine2');
+    const hackerLine3 = document.getElementById('hackerLine3');
     
-    // ========== КЛАВИАТУРА ==========
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft' && !prevBtn.disabled) {
-            prevBtn.click();
-        } else if (e.key === 'ArrowRight' && !nextBtn.disabled) {
-            nextBtn.click();
-        } else if (e.key === 'p' || e.key === 'P') {
-            presentationBtn.click();
+    if (wifiSlider) {
+        wifiSlider.addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            sliderValue.textContent = value + '%';
+            
+            if (value >= 0) hackerLine1.classList.remove('hidden');
+            if (value >= 33) hackerLine2.classList.remove('hidden');
+            else hackerLine2.classList.add('hidden');
+            
+            if (value >= 66) hackerLine3.classList.remove('hidden');
+            else hackerLine3.classList.add('hidden');
+        });
+    }
+    
+    // ========== ВИКТОРИНА ==========
+    // Для каждого слайда с викториной (12-21)
+    for (let i = 12; i <= 21; i++) {
+        const slide = document.querySelector(`[data-slide="${i}"]`);
+        if (!slide) continue;
+        
+        const options = slide.querySelectorAll('.quiz-option');
+        const feedback = slide.querySelector('.quiz-feedback');
+        const nextBtn = slide.querySelector('.next-quiz-btn');
+        
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const isCorrect = option.dataset.correct === 'true';
+                
+                options.forEach(opt => {
+                    opt.classList.remove('correct-choice', 'wrong-choice');
+                });
+                
+                if (isCorrect) {
+                    option.classList.add('correct-choice');
+                    if (feedback) {
+                        feedback.textContent = '✅ [ACCESS GRANTED] Правильно! Этот пароль надежнее.';
+                        feedback.style.color = '#0f0';
+                        feedback.classList.remove('hidden');
+                    }
+                } else {
+                    option.classList.add('wrong-choice');
+                    if (feedback) {
+                        feedback.textContent = '❌ [ACCESS DENIED] Нет, этот пароль слишком простой!';
+                        feedback.style.color = '#ff0000';
+                        feedback.classList.remove('hidden');
+                    }
+                    
+                    options.forEach(opt => {
+                        if (opt.dataset.correct === 'true') {
+                            opt.classList.add('correct-choice');
+                        }
+                    });
+                }
+                
+                if (nextBtn) {
+                    nextBtn.classList.remove('hidden');
+                }
+            });
+        });
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                goToSlide(i);
+            });
         }
+    }
+    
+    // ========== ОБРАБОТКА КАСАНИЙ ==========
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+    
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) {
+            if (!nextBtn.disabled) {
+                nextBtn.click();
+            }
+        }
+        if (touchEndX > touchStartX + swipeThreshold) {
+            if (!prevBtn.disabled) {
+                prevBtn.click();
+            }
+        }
+    }
+    
+    // ========== КЛИК ПО ТОЧКАМ ==========
+    document.querySelectorAll('.dot-nav').forEach(dot => {
+        dot.addEventListener('click', () => {
+            const index = parseInt(dot.dataset.index);
+            goToSlide(index);
+        });
     });
     
     // Инициализация
