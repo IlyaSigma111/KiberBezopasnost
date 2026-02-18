@@ -1,79 +1,132 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', function() {
-    // ========== 1. РЕЖИМ ПРЕЗЕНТАЦИИ ==========
-    const presentationBtn = document.getElementById('presentation-toggle');
-    const container = document.querySelector('.container');
+    // ========== НАВИГАЦИЯ ПО СЛАЙДАМ ==========
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+    const currentSpan = document.getElementById('current-slide');
+    const totalSpan = document.getElementById('total-slides');
+    const dotsContainer = document.getElementById('slideDots');
+    
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    totalSpan.textContent = totalSlides;
 
-    presentationBtn.addEventListener('click', () => {
-        container.classList.toggle('presentation-mode');
-        presentationBtn.textContent = container.classList.contains('presentation-mode') ? '🔲' : '🎬';
+    // Создаем точки
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        dot.dataset.index = i;
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+    }
+    
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlides() {
+        // Обновляем слайды
+        slides.forEach((slide, index) => {
+            slide.classList.toggle('active', index === currentSlide);
+        });
+        
+        // Обновляем счетчик
+        currentSpan.textContent = currentSlide + 1;
+        
+        // Обновляем кнопки
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === totalSlides - 1;
+        
+        // Обновляем точки
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    function goToSlide(index) {
+        if (index >= 0 && index < totalSlides) {
+            currentSlide = index;
+            updateSlides();
+        }
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+    nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+    // ========== РЕЖИМ ПРЕЗЕНТАЦИИ ==========
+    const presentationToggle = document.getElementById('presentationToggle');
+    const glassContainer = document.querySelector('.glass-container');
+
+    presentationToggle.addEventListener('click', () => {
+        glassContainer.classList.toggle('presentation-mode');
+        presentationToggle.innerHTML = glassContainer.classList.contains('presentation-mode') 
+            ? '<span class="icon">🔲</span><span class="label">Выйти</span>' 
+            : '<span class="icon">🎬</span><span class="label">Режим презентации</span>';
     });
 
-    // ========== 2. ПРИМЕР С 2FA ==========
+    // ========== ФИШИНГ ==========
+    const phishLink = document.getElementById('phishLink');
+    phishLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('⚠️ ЭТО ФИШИНГ! Настоящий сайт: http://secure.com.fake-site.ru');
+    });
+
+    // ========== 2FA ==========
     const loginBtn = document.getElementById('simulateLoginBtn');
-    const verifyBtn = document.getElementById('verify2faBtn');
-    const messageEl = document.getElementById('2faMessage');
-    const fake2faDiv = document.getElementById('fake2fa');
+    const verifyBtn = document.getElementById('verifyTwofaBtn');
+    const twofaPanel = document.getElementById('twofaPanel');
+    const twofaMessage = document.getElementById('twofaMessage');
+    const twofaCode = document.getElementById('twofaCode');
+
+    twofaPanel.style.display = 'none';
 
     loginBtn.addEventListener('click', () => {
-        fake2faDiv.style.display = 'block'; // Показываем блок ввода кода
-        messageEl.textContent = 'Логин прошел, введите код из SMS (подсказка: 123456)';
+        twofaPanel.style.display = 'block';
+        twofaMessage.textContent = 'Код отправлен (подсказка: 123456)';
+        twofaMessage.style.color = '#a8ede0';
     });
 
     verifyBtn.addEventListener('click', () => {
-        const code = document.getElementById('2faCode').value;
-        if (code === '123456') {
-            messageEl.textContent = '✅ Успех! 2FA сработала. Доступ разрешен.';
-            messageEl.style.color = '#00b894';
+        if (twofaCode.value === '123456') {
+            twofaMessage.textContent = '✅ Доступ разрешен! 2FA сработала.';
+            twofaMessage.style.color = '#00ff88';
         } else {
-            messageEl.textContent = '❌ Неверный код! Доступ заблокирован.';
-            messageEl.style.color = '#d63031';
+            twofaMessage.textContent = '❌ Неверный код! Доступ заблокирован.';
+            twofaMessage.style.color = '#ff4444';
         }
     });
 
-    // ========== 3. ПРИМЕР С ШИФРОВАНИЕМ ==========
+    // ========== ШИФРОВАНИЕ ==========
     const encryptBtn = document.getElementById('encryptBtn');
-    const originalTextSpan = document.getElementById('originalText');
-    const encryptedResultDiv = document.getElementById('encryptedResult');
+    const originalText = document.getElementById('originalText');
+    const encryptedResult = document.getElementById('encryptedResult');
 
     encryptBtn.addEventListener('click', () => {
-        const original = originalTextSpan.textContent;
-        // Простейшая имитация шифрования (замена на символы)
-        let encrypted = '';
-        for (let i = 0; i < original.length; i++) {
-            encrypted += String.fromCharCode(original.charCodeAt(i) + 10); // Сдвиг на 10 символов
-        }
-        // Делаем нечитаемым
-        encrypted = btoa(original); // Base64 для наглядности
-        encryptedResultDiv.textContent = encrypted;
+        const text = originalText.textContent;
+        // Простое base64 "шифрование" для наглядности
+        const encrypted = btoa(text);
+        encryptedResult.innerHTML = `<span class="result">${encrypted}</span>`;
     });
 
-    // ========== 4. Wi-Fi СЛАЙДЕР (HACKER VIEW) ==========
+    // ========== Wi-Fi ХАКЕР ==========
     const slider = document.getElementById('hackerSlider');
-    const dataMedium = document.getElementById('hackerDataMedium');
-    const dataFull = document.getElementById('hackerDataFull');
+    const dataLight = document.getElementById('dataLight');
+    const dataMedium = document.getElementById('dataMedium');
+    const dataFull = document.getElementById('dataFull');
 
     slider.addEventListener('input', (e) => {
-        const val = parseInt(e.target.value);
-        // При 0 - видно только легкие данные, при 50 - средние, при 100 - все
-        if (val < 30) {
-            dataMedium.classList.add('hidden');
-            dataFull.classList.add('hidden');
-        } else if (val >= 30 && val < 70) {
-            dataMedium.classList.remove('hidden');
-            dataFull.classList.add('hidden');
-        } else {
-            dataMedium.classList.remove('hidden');
-            dataFull.classList.remove('hidden');
-        }
+        const value = parseInt(e.target.value);
+        
+        // Сбрасываем видимость
+        dataLight.classList.remove('visible');
+        dataMedium.classList.remove('visible');
+        dataFull.classList.remove('visible');
+        
+        // Показываем данные в зависимости от положения слайдера
+        if (value >= 0) dataLight.classList.add('visible');
+        if (value >= 33) dataMedium.classList.add('visible');
+        if (value >= 66) dataFull.classList.add('visible');
     });
 
-    // ========== 5. ВИКТОРИНА (10 карточек с парами паролей) ==========
-    const quizContainer = document.getElementById('quiz-container');
-    const quizMessage = document.getElementById('quizMessage');
-
-    // База данных вопросов (10 пар)
+    // ========== ВИКТОРИНА ==========
     const questions = [
         { left: 'qwerty123', right: 'G7$k2!mN9', correct: 'right' },
         { left: 'password', right: 'Tr0ub4dor&3', correct: 'right' },
@@ -84,75 +137,63 @@ document.addEventListener('DOMContentLoaded', function() {
         { left: 'football', right: 'F00tB@ll#1', correct: 'right' },
         { left: '111111', right: 'Str0ng!P@ss', correct: 'right' },
         { left: 'sunshine', right: 'SunsH1n3&*', correct: 'right' },
-        { left: 'qwerty', right: 'Qw3rTy!@#', correct: 'right' } // Сложный, но все же слабый? Для примера оставим сложный справа
+        { left: 'qwerty', right: 'Qw3rTy!@#', correct: 'right' }
     ];
 
-    // Функция для создания карточки
-    function createQuizCard(q, index) {
+    // Разделяем вопросы на 3 части
+    const part1 = questions.slice(0, 3);
+    const part2 = questions.slice(3, 7);
+    const part3 = questions.slice(7, 10);
+
+    function createQuizCard(q, index, container) {
         const card = document.createElement('div');
         card.classList.add('quiz-card');
-        card.dataset.correct = q.correct;
-        card.dataset.index = index;
-
+        
         const pairDiv = document.createElement('div');
         pairDiv.classList.add('password-pair');
-
+        
         const leftItem = document.createElement('div');
-        leftItem.classList.add('password-item', 'weak');
+        leftItem.classList.add('password-item');
         leftItem.textContent = q.left;
-
+        
         const vsSpan = document.createElement('span');
         vsSpan.classList.add('vs');
         vsSpan.textContent = 'VS';
-
+        
         const rightItem = document.createElement('div');
-        rightItem.classList.add('password-item', 'strong');
+        rightItem.classList.add('password-item');
         rightItem.textContent = q.right;
-
+        
         pairDiv.appendChild(leftItem);
         pairDiv.appendChild(vsSpan);
         pairDiv.appendChild(rightItem);
-
         card.appendChild(pairDiv);
-
-        // Добавляем обработчик клика
-        card.addEventListener('click', function(e) {
-            // Убираем предыдущие классы выбора на этой карточке
-            this.classList.remove('selected-correct', 'selected-wrong');
-
-            // Определяем, правильный ли выбор (всегда ожидаем, что кликнут по карточке, а не по элементу)
-            // В нашей викторине "правильный" всегда тот, что справа (условно)
-            const isCorrect = (q.correct === 'right'); // Всегда true в нашей БД, но для логики оставим
-
-            if (isCorrect) {
-                this.classList.add('selected-correct');
-                quizMessage.textContent = `✅ Вопрос ${index+1}: Верно! Пароль "${q.right}" значительно сложнее для взлома.`;
-                quizMessage.style.color = '#00b894';
+        
+        card.addEventListener('click', () => {
+            // Убираем предыдущие классы
+            card.classList.remove('correct', 'wrong');
+            
+            if (q.correct === 'right') {
+                card.classList.add('correct');
+                document.getElementById('quizMessage').textContent = `✅ Верно! "${q.right}" надежнее`;
             } else {
-                this.classList.add('selected-wrong');
-                quizMessage.textContent = `❌ Вопрос ${index+1}: Этот пароль слишком прост. Посмотри на правый вариант!`;
-                quizMessage.style.color = '#d63031';
+                card.classList.add('wrong');
+                document.getElementById('quizMessage').textContent = `❌ "${q.left}" слишком простой`;
             }
         });
-
+        
         return card;
     }
 
-    // Очищаем контейнер и заполняем вопросами
-    quizContainer.innerHTML = '';
-    questions.forEach((q, idx) => {
-        quizContainer.appendChild(createQuizCard(q, idx));
-    });
+    // Заполняем все три части
+    const quizPart1 = document.getElementById('quizPart1');
+    const quizPart2 = document.getElementById('quizPart2');
+    const quizPart3 = document.getElementById('quizPart3');
+    
+    part1.forEach((q, i) => quizPart1.appendChild(createQuizCard(q, i, quizPart1)));
+    part2.forEach((q, i) => quizPart2.appendChild(createQuizCard(q, i, quizPart2)));
+    part3.forEach((q, i) => quizPart3.appendChild(createQuizCard(q, i, quizPart3)));
 
-    // Дополнительно: Начальное скрытие 2FA блока
-    fake2faDiv.style.display = 'none';
-
-    // ========== Эффект для фишинг-ссылки (уже работает через CSS, но добавим console.log для интерактива) ==========
-    const phishLink = document.getElementById('phishLink');
-    phishLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('⚠️ Предупреждение! Вы чуть не перешли по фишинговой ссылке. В реальной жизни это привело бы к краже данных.');
-    });
-
-    console.log('Сайт по кибербезопасности загружен. Приятного изучения!');
+    // Инициализация
+    updateSlides();
 });
