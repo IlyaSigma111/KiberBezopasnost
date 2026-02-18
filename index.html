@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кибербезопасность · 7 класс</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Кибербезопасность</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="presentation">
-        <div class="header">
-            <div class="logo">
-                <span class="logo-icon">🛡️</span>
-                <span class="logo-text">КИБЕРБЕЗОПАСНОСТЬ 7</span>
-            </div>
-            <div class="counter" id="slideCounter">1/24</div>
-            <div class="progress">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-        </div>
-
-        <div class="content" id="content"></div>
-
-        <div class="footer">
-            <button class="nav-btn" id="prevBtn">◀ НАЗАД</button>
-            <span class="slide-title" id="slideTitle">Введение</span>
-            <button class="nav-btn" id="nextBtn">ВПЕРЁД ▶</button>
+    <div class="container">
+        <header>
+            <h1>Кибербезопасность</h1>
+            <button id="toggle-mode" onclick="togglePresentationMode()">Презентация</button>
+        </header>
+        <div id="content">
+            <section class="theory">
+                <h2>Основные принципы кибербезопасности</h2>
+                <ul>
+                    <li><strong>Пароли:</strong> Используйте сложные пароли, не повторяйте их.</li>
+                    <li><strong>Фишинг:</strong> Не кликайте на сомнительные ссылки.</li>
+                    <li><strong>Обновления:</strong> Регулярно обновляйте софт для защиты от уязвимостей.</li>
+                </ul>
+            </section>
+            <section class="simulation">
+                <h2>Мини-симуляция: Защита пароля</h2>
+                <button onclick="simulatePasswordAttack()">Попробовать защиту пароля</button>
+                <p id="password-feedback"></p>
+            </section>
         </div>
     </div>
     <script src="script.js"></script>
